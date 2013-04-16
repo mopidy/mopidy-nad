@@ -16,8 +16,6 @@ except ImportError:
 
 import pykka
 
-from . import utils
-
 
 logger = logging.getLogger('mopidy_nad')
 
@@ -38,7 +36,7 @@ class NadMixer(gst.Element, gst.ImplementsInterface, gst.interfaces.Mixer):
     _nad_talker = None
 
     def list_tracks(self):
-        track = utils.create_track(
+        track = create_track(
             label='Master',
             initial_volume=0,
             min_volume=0,
@@ -76,6 +74,37 @@ class NadMixer(gst.Element, gst.ImplementsInterface, gst.interfaces.Mixer):
             speakers_a=self.speakers_a or None,
             speakers_b=self.speakers_b or None
         ).proxy()
+
+
+def create_track(label, initial_volume, min_volume, max_volume,
+                 num_channels, flags):
+
+    class Track(gst.interfaces.MixerTrack):
+        def __init__(self):
+            super(Track, self).__init__()
+            self.volumes = (initial_volume,) * self.num_channels
+
+        @gobject.property
+        def label(self):
+            return label
+
+        @gobject.property
+        def min_volume(self):
+            return min_volume
+
+        @gobject.property
+        def max_volume(self):
+            return max_volume
+
+        @gobject.property
+        def num_channels(self):
+            return num_channels
+
+        @gobject.property
+        def flags(self):
+            return flags
+
+    return Track()
 
 
 class NadTalker(pykka.ThreadingActor):
