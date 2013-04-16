@@ -1,11 +1,12 @@
+**********
 Mopidy-NAD
-==========
+**********
 
 `Mopidy <http://www.mopidy.com/>`_ extension for controlling volume using an
 external NAD amplifier. Developed and tested with a NAD C355BEE.
 
 Installation
-------------
+============
 
 Install by running::
 
@@ -16,7 +17,7 @@ Or install the Debian/Ubuntu package from `apt.mopidy.com
 
 
 Configuration
--------------
+=============
 
 The Mopidy-NAD extension is enabled by default. To disable it, add the
 following to ``mopidy.conf``::
@@ -66,8 +67,22 @@ Configuration examples::
 
 
 Project resources
------------------
+=================
 
 - `Source code <https://github.com/mopidy/mopidy-nad>`_
 - `Issue tracker <https://github.com/mopidy/mopidy/issues>`_
 - `Download development snapshot <https://github.com/mopidy/mopidy-nad/tarball/develop#egg=Mopidy-NAD-dev>`_
+
+
+Changelog
+=========
+
+v0.2 (2013-04-16)
+-----------------
+
+- Add missing ``create_track()`` helper function.
+
+v0.1 (2013-04-16)
+-----------------
+
+- Extracted extension from Mopidy core.
