@@ -77,6 +77,11 @@ Project resources
 Changelog
 =========
 
+v0.3 (2013-04-16)
+-----------------
+
+- Include ``README.rst`` and ``LICENSE`` in PyPI package.
+
 v0.2 (2013-04-16)
 -----------------
 
