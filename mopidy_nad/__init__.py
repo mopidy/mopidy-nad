@@ -8,7 +8,7 @@ import gobject
 from mopidy import exceptions, ext
 
 
-__version__ = '0.1'
+__version__ = '0.2'
 
 default_config = b"""
 [nad]
