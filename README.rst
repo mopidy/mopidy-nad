@@ -2,8 +2,25 @@
 Mopidy-NAD
 **********
 
+.. image:: https://pypip.in/v/Mopidy-NAD/badge.png
+    :target: https://crate.io/packages/Mopidy-NAD/
+    :alt: Latest PyPI version
+
+.. image:: https://pypip.in/d/Mopidy-NAD/badge.png
+    :target: https://crate.io/packages/Mopidy-NAD/
+    :alt: Number of PyPI downloads
+
+.. image:: https://travis-ci.org/mopidy/mopidy-nad.png?branch=master
+    :target: https://travis-ci.org/mopidy/mopidy-nad
+    :alt: Travis CI build status
+
+.. image:: https://coveralls.io/repos/mopidy/mopidy-nad/badge.png?branch=master
+   :target: https://coveralls.io/r/mopidy/mopidy-nad?branch=master
+   :alt: Test coverage
+
 `Mopidy <http://www.mopidy.com/>`_ extension for controlling volume using an
 external NAD amplifier. Developed and tested with a NAD C355BEE.
+
 
 Installation
 ============
@@ -12,7 +29,7 @@ Install by running::
 
     sudo pip install Mopidy-NAD
 
-Or install the Debian/Ubuntu package from `apt.mopidy.com
+Or, if available, install the Debian/Ubuntu package from `apt.mopidy.com
 <http://apt.mopidy.com/>`_.
 
 
@@ -70,8 +87,8 @@ Project resources
 =================
 
 - `Source code <https://github.com/mopidy/mopidy-nad>`_
-- `Issue tracker <https://github.com/mopidy/mopidy/issues>`_
-- `Download development snapshot <https://github.com/mopidy/mopidy-nad/tarball/develop#egg=Mopidy-NAD-dev>`_
+- `Issue tracker <https://github.com/mopidy/mopidy-nad/issues>`_
+- `Download development snapshot <https://github.com/mopidy/mopidy-nad/tarball/master#egg=Mopidy-NAD-dev>`_
 
 
 Changelog
