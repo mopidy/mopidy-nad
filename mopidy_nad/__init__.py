@@ -1,19 +1,16 @@
 from __future__ import unicode_literals
 
+import os
+
 import pygst
 pygst.require('0.10')
 import gst
 import gobject
 
-from mopidy import exceptions, ext
+from mopidy import config, ext
 
 
 __version__ = '0.3'
-
-default_config = b"""
-[nad]
-enabled = true
-"""
 
 
 class Extension(ext.Extension):
@@ -22,13 +19,8 @@ class Extension(ext.Extension):
     version = __version__
 
     def get_default_config(self):
-        return default_config
-
-    def validate_environment(self):
-        try:
-            import serial  # noqa
-        except ImportError as e:
-            raise exceptions.ExtensionError('pyserial library not found', e)
+        conf_file = os.path.join(os.path.dirname(__file__), 'ext.conf')
+        return config.read(conf_file)
 
     def register_gstreamer_elements(self):
         from .mixer import NadMixer

@@ -19,13 +19,19 @@ setup(
     author_email='stein.magnus@jodal.no',
     description='Mopidy extension for controlling volume on a NAD amplifier',
     long_description=open('README.rst').read(),
-    packages=find_packages(),
+    packages=find_packages(exclude=['tests', 'tests.*']),
     zip_safe=False,
+    include_package_data=True,
     install_requires=[
         'setuptools',
-        'Mopidy',
-        'Pykka',
+        'Mopidy >= 0.14',
+        'Pykka >= 1.1',
         'pyserial',
+    ],
+    test_suite='nose.collector',
+    tests_require=[
+        'nose',
+        'mock >= 1.0',
     ],
     entry_points={
         'mopidy.ext': [
