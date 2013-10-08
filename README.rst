@@ -90,6 +90,11 @@ Project resources
 Changelog
 =========
 
+v1.0 (2013-10-08)
+-----------------
+
+- Update to match the ``cookiecutter-mopidy-ext`` project template.
+
 v0.3 (2013-04-16)
 -----------------
 
