@@ -3,11 +3,11 @@ Mopidy-NAD
 **********
 
 .. image:: https://pypip.in/v/Mopidy-NAD/badge.png
-    :target: https://crate.io/packages/Mopidy-NAD/
+    :target: https://pypi.python.org/pypi/Mopidy-NAD/
     :alt: Latest PyPI version
 
 .. image:: https://pypip.in/d/Mopidy-NAD/badge.png
-    :target: https://crate.io/packages/Mopidy-NAD/
+    :target: https://pypi.python.org/pypi/Mopidy-NAD/
     :alt: Number of PyPI downloads
 
 .. image:: https://travis-ci.org/mopidy/mopidy-nad.png?branch=master
