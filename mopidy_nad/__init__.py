@@ -22,7 +22,7 @@ class Extension(ext.Extension):
         conf_file = os.path.join(os.path.dirname(__file__), 'ext.conf')
         return config.read(conf_file)
 
-    def register_gstreamer_elements(self):
+    def setup(self, registry):
         from .mixer import NadMixer
         gobject.type_register(NadMixer)
         gst.element_register(NadMixer, 'nadmixer', gst.RANK_MARGINAL)
