@@ -90,6 +90,11 @@ Project resources
 Changelog
 =========
 
+v1.1 (UNRELEASED)
+-----------------
+
+- Require Mopidy >= 0.18.
+
 v1.0 (2013-10-08)
 -----------------
 
