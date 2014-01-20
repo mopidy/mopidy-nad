@@ -17,7 +17,7 @@ except ImportError:
 from mopidy_nad import talker
 
 
-logger = logging.getLogger('mopidy_nad')
+logger = logging.getLogger(__name__)
 
 
 class NadMixer(gst.Element, gst.ImplementsInterface, gst.interfaces.Mixer):

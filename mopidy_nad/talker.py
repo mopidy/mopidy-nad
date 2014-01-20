@@ -3,7 +3,7 @@ import logging
 import pykka
 import serial
 
-logger = logging.getLogger('mopidy_nad')
+logger = logging.getLogger(__name__)
 
 
 class NadTalker(pykka.ThreadingActor):
