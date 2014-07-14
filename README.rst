@@ -46,8 +46,8 @@ The NAD amplifier must be connected to the machine running Mopidy using a
 serial cable.
 
 To use the NAD amplifier ot control volume, set the ``audio/mixer`` config
-value in ``mopidy.conf`` to ``nadmixer``. You probably also needs to add some
-properties to the ``audio/mixer`` config value.
+value in ``mopidy.conf`` to ``nad``. You probably also needs to add some
+properties to the ``nad`` config section.
 
 Supported properties includes:
 
@@ -58,25 +58,37 @@ Supported properties includes:
   ``aux``, ``disc``, ``tape``, ``tuner``, etc. Leave unset if you don't want
   the mixer to change it for you.
 
-- ``speakers-a``: Set to ``on`` or ``off`` if you want the mixer to make sure
-  that speaker set A is turned on or off. Leave unset if you don't want the
-  mixer to change it for you.
+- ``speakers-a``: Set to ``on`` or ``off`` (or ``true`` or ``false``) if you
+  want the mixer to make sure that speaker set A is turned on or off. Leave
+  unset if you don't want the mixer to change it for you.
 
 - ``speakers-b``: See ``speakers-a``.
 
-Configuration examples::
+Configuration example with minimum configuration, if the amplifier is available
+at ``/dev/ttyUSB0``::
 
-    # Minimum configuration, if the amplifier is available at /dev/ttyUSB0
     [audio]
-    mixer = nadmixer
+    mixer = nad
 
-    # Minimum configuration, if the amplifier is available elsewhere
-    [audio]
-    mixer = nadmixer port=/dev/ttyUSB3
+Configuration example with minimum configuration, if the amplifier is available
+elsewhere::
 
-    # Full configuration
     [audio]
-    mixer = nadmixer port=/dev/ttyUSB0 source=aux speakers-a=on speakers-b=off
+    mixer = nad
+
+    [nad]
+    port = /dev/ttyUSB3
+
+Configuration example with full configuration::
+
+    [audio]
+    mixer = nad
+
+    [nad]
+    port = /dev/ttyUSB0
+    source = aux
+    speakers-a = true
+    speakers-b = false
 
 
 Project resources
@@ -90,13 +102,21 @@ Project resources
 Changelog
 =========
 
-v1.1 (2014-01-20)
------------------
+v2.0.0 (UNRELEASED)
+-------------------
+
+- Require Mopidy >= 0.19 and the new Mopidy mixer API.
+
+- The configuration format has changed, due to the move from GStreamer 0.10's
+  mixer API to Mopidy's new mixer API.
+
+v1.1.0 (2014-01-20)
+-------------------
 
 - Require Mopidy >= 0.18.
 
-v1.0 (2013-10-08)
------------------
+v1.0.0 (2013-10-08)
+-------------------
 
 - Update to match the ``cookiecutter-mopidy-ext`` project template.
 
