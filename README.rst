@@ -2,19 +2,19 @@
 Mopidy-NAD
 **********
 
-.. image:: https://pypip.in/v/Mopidy-NAD/badge.png
+.. image:: https://img.shields.io/pypi/v/Mopidy-NAD.svg?style=flat
     :target: https://pypi.python.org/pypi/Mopidy-NAD/
     :alt: Latest PyPI version
 
-.. image:: https://pypip.in/d/Mopidy-NAD/badge.png
+.. image:: https://img.shields.io/pypi/dm/Mopidy-NAD.svg?style=flat
     :target: https://pypi.python.org/pypi/Mopidy-NAD/
     :alt: Number of PyPI downloads
 
-.. image:: https://travis-ci.org/mopidy/mopidy-nad.png?branch=master
+.. image:: https://img.shields.io/travis/mopidy/mopidy-nad/master.png?style=flat
     :target: https://travis-ci.org/mopidy/mopidy-nad
     :alt: Travis CI build status
 
-.. image:: https://coveralls.io/repos/mopidy/mopidy-nad/badge.png?branch=master
+.. image:: https://img.shields.io/coveralls/mopidy/mopidy-nad/master.svg?style=flat
    :target: https://coveralls.io/r/mopidy/mopidy-nad?branch=master
    :alt: Test coverage
 
