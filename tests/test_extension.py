@@ -14,6 +14,10 @@ class ExtensionTest(unittest.TestCase):
 
         self.assertIn('[nad]', config)
         self.assertIn('enabled = true', config)
+        self.assertIn('port = /dev/ttyUSB0', config)
+        self.assertIn('source =', config)
+        self.assertIn('speakers-a =', config)
+        self.assertIn('speakers-b =', config)
 
     def test_get_config_schema(self):
         ext = Extension()
@@ -21,5 +25,7 @@ class ExtensionTest(unittest.TestCase):
         schema = ext.get_config_schema()
 
         self.assertIn('enabled', schema)
-
-    # TODO Write more tests
+        self.assertIn('port', schema)
+        self.assertIn('source', schema)
+        self.assertIn('speakers-a', schema)
+        self.assertIn('speakers-b', schema)
