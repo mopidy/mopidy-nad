@@ -96,7 +96,6 @@ Project resources
 
 - `Source code <https://github.com/mopidy/mopidy-nad>`_
 - `Issue tracker <https://github.com/mopidy/mopidy-nad/issues>`_
-- `Download development snapshot <https://github.com/mopidy/mopidy-nad/tarball/master#egg=Mopidy-NAD-dev>`_
 
 
 Changelog
