@@ -6,10 +6,6 @@ Mopidy-NAD
     :target: https://pypi.python.org/pypi/Mopidy-NAD/
     :alt: Latest PyPI version
 
-.. image:: https://img.shields.io/pypi/dm/Mopidy-NAD.svg?style=flat
-    :target: https://pypi.python.org/pypi/Mopidy-NAD/
-    :alt: Number of PyPI downloads
-
 .. image:: https://img.shields.io/travis/mopidy/mopidy-nad/master.svg?style=flat
     :target: https://travis-ci.org/mopidy/mopidy-nad
     :alt: Travis CI build status
