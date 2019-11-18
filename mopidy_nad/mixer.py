@@ -1,6 +1,5 @@
 """Mixer that controls volume using a NAD amplifier."""
 
-from __future__ import unicode_literals
 
 import logging
 
@@ -19,7 +18,7 @@ class NadMixer(pykka.ThreadingActor, mixer.Mixer):
     name = 'nad'
 
     def __init__(self, config):
-        super(NadMixer, self).__init__(config)
+        super().__init__(config)
 
         self.port = config['nad']['port']
         self.source = config['nad']['source'] or None
@@ -181,7 +180,7 @@ class NadMixer(pykka.ThreadingActor, mixer.Mixer):
     def _command_device(self, key, value):
         if type(value) == unicode:
             value = value.encode('utf-8')
-        self._write('%s=%s' % (key, value))
+        self._write(f'{key}={value}')
         self._readline()
 
     def _write(self, data):
