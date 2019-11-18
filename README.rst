@@ -2,19 +2,19 @@
 Mopidy-NAD
 **********
 
-.. image:: https://img.shields.io/pypi/v/Mopidy-NAD.svg?style=flat
-    :target: https://pypi.python.org/pypi/Mopidy-NAD/
+.. image:: https://img.shields.io/pypi/v/Mopidy-NAD
+    :target: https://pypi.org/project/Mopidy-NAD/
     :alt: Latest PyPI version
 
-.. image:: https://img.shields.io/travis/mopidy/mopidy-nad/master.svg?style=flat
-    :target: https://travis-ci.org/mopidy/mopidy-nad
-    :alt: Travis CI build status
+.. image:: https://img.shields.io/circleci/build/gh/mopidy/mopidy-nad
+    :target: https://circleci.com/gh/mopidy/mopidy-nad
+    :alt: CircleCI build status
 
-.. image:: https://img.shields.io/coveralls/mopidy/mopidy-nad/master.svg?style=flat
-   :target: https://coveralls.io/r/mopidy/mopidy-nad?branch=master
-   :alt: Test coverage
+.. image:: https://img.shields.io/codecov/c/gh/mopidy/mopidy-nad
+    :target: https://codecov.io/gh/mopidy/mopidy-nad
+    :alt: Test coverage
 
-`Mopidy <http://www.mopidy.com/>`_ extension for controlling volume using an
+`Mopidy <https://mopidy.com/>`_ extension for controlling volume using an
 external NAD amplifier. Developed and tested with a NAD C355BEE.
 
 
@@ -44,10 +44,7 @@ Installation
 
 Install by running::
 
-    sudo pip install Mopidy-NAD
-
-Or, if available, install the Debian/Ubuntu package from `apt.mopidy.com
-<http://apt.mopidy.com/>`_.
+    python3 -m pip install Mopidy-NAD
 
 
 Configuration
@@ -113,6 +110,7 @@ Project resources
 
 - `Source code <https://github.com/mopidy/mopidy-nad>`_
 - `Issue tracker <https://github.com/mopidy/mopidy-nad/issues>`_
+- `Changelog <https://github.com/mopidy/mopidy-nad/blob/master/CHANGELOG.rst>`_
 
 
 Credits
@@ -121,40 +119,3 @@ Credits
 - Original author: `Stein Magnus Jodal <https://github.com/jodal>`_
 - Current maintainer: None. Maintainer wanted, see section above.
 - `Contributors <https://github.com/mopidy/mopidy-nad/graphs/contributors>`_
-
-
-Changelog
-=========
-
-v2.0.0 (2014-07-21)
--------------------
-
-- Require Mopidy >= 0.19 and the new Mopidy mixer API.
-
-- The configuration format has changed, due to the move from GStreamer 0.10's
-  mixer API to Mopidy's new mixer API.
-
-v1.1.0 (2014-01-20)
--------------------
-
-- Require Mopidy >= 0.18.
-
-v1.0.0 (2013-10-08)
--------------------
-
-- Update to match the ``cookiecutter-mopidy-ext`` project template.
-
-v0.3 (2013-04-16)
------------------
-
-- Include ``README.rst`` and ``LICENSE`` in PyPI package.
-
-v0.2 (2013-04-16)
------------------
-
-- Add missing ``create_track()`` helper function.
-
-v0.1 (2013-04-16)
------------------
-
-- Extracted extension from Mopidy core.
