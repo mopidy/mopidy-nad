@@ -1,7 +1,6 @@
 import unittest
 
 import mopidy.mixer
-
 from mopidy_nad import mixer
 
 

@@ -3,12 +3,10 @@
 
 import logging
 
-from mopidy import mixer
-
 import pykka
 
 import serial
-
+from mopidy import mixer
 
 logger = logging.getLogger(__name__)
 
