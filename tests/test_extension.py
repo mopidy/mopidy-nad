@@ -1,28 +1,26 @@
-import unittest
-
 from mopidy_nad import Extension
 
 
-class ExtensionTest(unittest.TestCase):
-    def test_get_default_config(self):
-        ext = Extension()
+def test_get_default_config():
+    ext = Extension()
 
-        config = ext.get_default_config()
+    config = ext.get_default_config()
 
-        self.assertIn("[nad]", config)
-        self.assertIn("enabled = true", config)
-        self.assertIn("port = /dev/ttyUSB0", config)
-        self.assertIn("source =", config)
-        self.assertIn("speakers-a =", config)
-        self.assertIn("speakers-b =", config)
+    assert "[nad]" in config
+    assert "enabled = true" in config
+    assert "port = /dev/ttyUSB0" in config
+    assert "source =" in config
+    assert "speakers-a =" in config
+    assert "speakers-b =" in config
 
-    def test_get_config_schema(self):
-        ext = Extension()
 
-        schema = ext.get_config_schema()
+def test_get_config_schema():
+    ext = Extension()
 
-        self.assertIn("enabled", schema)
-        self.assertIn("port", schema)
-        self.assertIn("source", schema)
-        self.assertIn("speakers-a", schema)
-        self.assertIn("speakers-b", schema)
+    schema = ext.get_config_schema()
+
+    assert "enabled" in schema
+    assert "port" in schema
+    assert "source" in schema
+    assert "speakers-a" in schema
+    assert "speakers-b" in schema
