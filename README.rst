@@ -44,7 +44,9 @@ Installation
 
 Install by running::
 
-    python3 -m pip install Mopidy-NAD
+    sudo python3 -m pip install Mopidy-NAD
+
+See https://mopidy.com/ext/nad/ for alternative installation methods.
 
 
 Configuration
