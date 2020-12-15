@@ -112,7 +112,7 @@ Project resources
 
 - `Source code <https://github.com/mopidy/mopidy-nad>`_
 - `Issue tracker <https://github.com/mopidy/mopidy-nad/issues>`_
-- `Changelog <https://github.com/mopidy/mopidy-nad/blob/master/CHANGELOG.rst>`_
+- `Changelog <https://github.com/mopidy/mopidy-nad/releases>`_
 
 
 Credits
