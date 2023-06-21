@@ -6,7 +6,7 @@ Mopidy-NAD
     :target: https://pypi.org/project/Mopidy-NAD/
     :alt: Latest PyPI version
 
-.. image:: https://img.shields.io/github/workflow/status/mopidy/mopidy-nad/CI
+.. image:: https://img.shields.io/github/actions/workflow/status/mopidy/mopidy-nad/ci.yml?branch=main
     :target: https://github.com/mopidy/mopidy-nad/actions
     :alt: CI build status
 
