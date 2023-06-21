@@ -11,7 +11,6 @@ logger = logging.getLogger(__name__)
 
 
 class NadMixer(pykka.ThreadingActor, mixer.Mixer):
-
     name = "nad"
 
     def __init__(self, config):
@@ -179,7 +178,6 @@ class NadMixer(pykka.ThreadingActor, mixer.Mixer):
         return self._readline().replace(f"{key}=", "")
 
     def _command_device(self, key, value):
-
         self._write(f"{key}={value}")
         self._readline()
 
