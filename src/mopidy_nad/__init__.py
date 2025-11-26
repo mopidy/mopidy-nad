@@ -1,14 +1,13 @@
 import pathlib
-
-import pkg_resources
+from importlib.metadata import version
 
 from mopidy import config, ext
 
-__version__ = pkg_resources.get_distribution("Mopidy-NAD").version
+__version__ = version("mopidy-nad")
 
 
 class Extension(ext.Extension):
-    dist_name = "Mopidy-NAD"
+    dist_name = "mopidy-nad"
     ext_name = "nad"
     version = __version__
 
