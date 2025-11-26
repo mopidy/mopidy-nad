@@ -23,6 +23,6 @@ class Extension(ext.Extension):
         return schema
 
     def setup(self, registry):
-        from mopidy_nad.mixer import NadMixer
+        from mopidy_nad.mixer import NadMixer  # noqa: PLC0415
 
         registry.add("mixer", NadMixer)
