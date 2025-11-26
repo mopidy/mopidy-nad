@@ -5,6 +5,8 @@ from typing import override
 
 import pykka
 import serial
+from mopidy.types import Percentage
+
 from mopidy import mixer
 
 logger = logging.getLogger(__name__)
@@ -12,6 +14,8 @@ logger = logging.getLogger(__name__)
 
 class NadMixer(pykka.ThreadingActor, mixer.Mixer):
     name = "nad"
+
+    _device: serial.Serial
 
     @override
     def __init__(self, config):
@@ -22,10 +26,8 @@ class NadMixer(pykka.ThreadingActor, mixer.Mixer):
         self.speakers_a = config["nad"]["speakers-a"]
         self.speakers_b = config["nad"]["speakers-b"]
 
-        self._volume_cache = 0
+        self._volume_cache = Percentage(0)
         self._mute_cache = False
-
-        self._device = None
 
         # Volume in range 0..VOLUME_LEVELS, None before calibration.
         self._nad_volume = None
@@ -180,7 +182,7 @@ class NadMixer(pykka.ThreadingActor, mixer.Mixer):
     def _write(self, data: str):
         # Write data to device. Prepends and appends a newline to the data, as
         # recommended by the NAD documentation.
-        if not self._device.isOpen():
+        if not self._device.is_open:
             self._device.open()
         data_bytes = f"\n{data}\n".encode()
         self._device.write(data_bytes)
@@ -189,7 +191,7 @@ class NadMixer(pykka.ThreadingActor, mixer.Mixer):
     def _readline(self) -> str:
         # Read line from device. The result is stripped for leading and
         # trailing whitespace.
-        if not self._device.isOpen():
+        if not self._device.is_open:
             self._device.open()
         result = self._device.readline().strip()
         if result:
