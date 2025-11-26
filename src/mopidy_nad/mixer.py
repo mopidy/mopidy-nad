@@ -1,11 +1,12 @@
 """Mixer that controls volume using a NAD amplifier."""
 
 import logging
+from typing import Any, override
 
 import pykka
-
 import serial
 from mopidy import mixer
+from mopidy.types import Percentage
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +14,10 @@ logger = logging.getLogger(__name__)
 class NadMixer(pykka.ThreadingActor, mixer.Mixer):
     name = "nad"
 
-    def __init__(self, config):
+    _device: serial.Serial
+
+    @override
+    def __init__(self, config: dict[str, dict[str, Any]]) -> None:
         super().__init__(config)
 
         self.port = config["nad"]["port"]
@@ -21,29 +25,31 @@ class NadMixer(pykka.ThreadingActor, mixer.Mixer):
         self.speakers_a = config["nad"]["speakers-a"]
         self.speakers_b = config["nad"]["speakers-b"]
 
-        self._volume_cache = 0
+        self._volume_cache = Percentage(0)
         self._mute_cache = False
-
-        self._device = None
 
         # Volume in range 0..VOLUME_LEVELS, None before calibration.
         self._nad_volume = None
 
-    def get_volume(self):
+    @override
+    def get_volume(self) -> Percentage:
         return self._volume_cache
 
-    def set_volume(self, volume):
+    @override
+    def set_volume(self, volume: Percentage) -> bool:
         success = self._set_volume(volume)
         if success:
             self._volume_cache = volume
             self.trigger_volume_changed(volume)
         return success
 
-    def get_mute(self):
+    @override
+    def get_mute(self) -> bool:
         return self._mute_cache
 
-    def set_mute(self, mute):
-        success = self._mute(mute)
+    @override
+    def set_mute(self, mute: bool) -> bool:
+        success = self._mute(mute=mute)
         if success:
             self._mute_cache = mute
             self.trigger_mute_changed(mute)
@@ -65,11 +71,12 @@ class NadMixer(pykka.ThreadingActor, mixer.Mixer):
     # Number of volume levels the amplifier supports. 40 for NAD C 355BEE.
     VOLUME_LEVELS = 40
 
-    def on_start(self):
+    @override
+    def on_start(self) -> None:
         self._open_connection()
         self._set_device_to_known_state()
 
-    def _open_connection(self):
+    def _open_connection(self) -> None:
         logger.info(f"NAD mixer: Connecting through {self.port!r}")
         self._device = serial.Serial(
             port=self.port,
@@ -81,42 +88,35 @@ class NadMixer(pykka.ThreadingActor, mixer.Mixer):
         )
         self._get_device_model()
 
-    def _set_device_to_known_state(self):
+    def _set_device_to_known_state(self) -> None:
         self._power_device_on()
         self._select_speakers()
         self._select_input_source()
-        self._mute(False)
+        self._mute(mute=False)
         self.calibrate_volume()
 
-    def _get_device_model(self):
+    def _get_device_model(self) -> str:
         model = self._ask_device("Main.Model")
         logger.info(f"NAD mixer: Connected to model {model!r}")
         return model
 
-    def _power_device_on(self):
+    def _power_device_on(self) -> None:
         self._check_and_set("Main.Power", "On")
 
-    def _select_speakers(self):
+    def _select_speakers(self) -> None:
         if self.speakers_a is not None:
-            self._check_and_set(
-                "Main.SpeakerA", "On" if self.speakers_a else "Off"
-            )
+            self._check_and_set("Main.SpeakerA", "On" if self.speakers_a else "Off")
         if self.speakers_b is not None:
-            self._check_and_set(
-                "Main.SpeakerB", "On" if self.speakers_b else "Off"
-            )
+            self._check_and_set("Main.SpeakerB", "On" if self.speakers_b else "Off")
 
-    def _select_input_source(self):
+    def _select_input_source(self) -> None:
         if self.source is not None:
             self._check_and_set("Main.Source", self.source.title())
 
-    def _mute(self, mute):
-        if mute:
-            return self._check_and_set("Main.Mute", "On")
-        else:
-            return self._check_and_set("Main.Mute", "Off")
+    def _mute(self, *, mute: bool) -> bool:
+        return self._check_and_set("Main.Mute", "On" if mute else "Off")
 
-    def calibrate_volume(self, current_nad_volume=None):
+    def calibrate_volume(self, current_nad_volume: int | None = None) -> None:
         # The NAD C 355BEE amplifier has 40 different volume levels. We have no
         # way of asking on which level we are. Thus, we must calibrate the
         # mixer by decreasing the volume 39 times.
@@ -132,11 +132,11 @@ class NadMixer(pykka.ThreadingActor, mixer.Mixer):
         else:
             self.actor_ref.proxy().calibrate_volume(current_nad_volume)
 
-    def _set_volume(self, volume):
+    def _set_volume(self, volume: Percentage) -> bool:
         # Increase or decrease the amplifier volume until it matches the given
         # target volume.
         logger.debug(f"Setting volume to {volume}")
-        target_nad_volume = int(round(volume * self.VOLUME_LEVELS / 100.0))
+        target_nad_volume = round(volume * self.VOLUME_LEVELS / 100.0)
         if self._nad_volume is None:
             return False  # Calibration needed
         while target_nad_volume > self._nad_volume:
@@ -147,17 +147,17 @@ class NadMixer(pykka.ThreadingActor, mixer.Mixer):
                 self._nad_volume -= 1
         return True
 
-    def _increase_volume(self):
+    def _increase_volume(self) -> bool:
         # Increase volume. Returns :class:`True` if confirmed by device.
         self._write("Main.Volume+")
         return self._readline() == "Main.Volume+"
 
-    def _decrease_volume(self):
+    def _decrease_volume(self) -> bool:
         # Decrease volume. Returns :class:`True` if confirmed by device.
         self._write("Main.Volume-")
         return self._readline() == "Main.Volume-"
 
-    def _check_and_set(self, key, value):
+    def _check_and_set(self, key: str, value: str) -> bool:
         for attempt in range(1, 4):
             if self._ask_device(key) == value:
                 return True
@@ -167,24 +167,21 @@ class NadMixer(pykka.ThreadingActor, mixer.Mixer):
             self._command_device(key, value)
         if self._ask_device(key) == value:
             return True
-        else:
-            logger.warning(
-                f"NAD mixer: Gave up on setting {key!r} to {value!r}"
-            )
-            return False
+        logger.warning(f"NAD mixer: Gave up on setting {key!r} to {value!r}")
+        return False
 
-    def _ask_device(self, key):
-        self._write("%s?" % key)
+    def _ask_device(self, key: str) -> str:
+        self._write(f"{key}?")
         return self._readline().replace(f"{key}=", "")
 
-    def _command_device(self, key, value):
+    def _command_device(self, key: str, value: str) -> None:
         self._write(f"{key}={value}")
         self._readline()
 
-    def _write(self, data: str):
+    def _write(self, data: str) -> None:
         # Write data to device. Prepends and appends a newline to the data, as
         # recommended by the NAD documentation.
-        if not self._device.isOpen():
+        if not self._device.is_open:
             self._device.open()
         data_bytes = f"\n{data}\n".encode()
         self._device.write(data_bytes)
@@ -193,10 +190,9 @@ class NadMixer(pykka.ThreadingActor, mixer.Mixer):
     def _readline(self) -> str:
         # Read line from device. The result is stripped for leading and
         # trailing whitespace.
-        if not self._device.isOpen():
+        if not self._device.is_open:
             self._device.open()
-        result_bytes = self._device.readline().strip()
-        if result_bytes:
-            logger.debug(f"Read: {result_bytes!r}")
-        result = result_bytes.decode()
-        return result
+        result = self._device.readline().strip()
+        if result:
+            logger.debug(f"Read: {result!r}")
+        return result.decode()
