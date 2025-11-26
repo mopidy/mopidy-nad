@@ -98,13 +98,9 @@ class NadMixer(pykka.ThreadingActor, mixer.Mixer):
 
     def _select_speakers(self):
         if self.speakers_a is not None:
-            self._check_and_set(
-                "Main.SpeakerA", "On" if self.speakers_a else "Off"
-            )
+            self._check_and_set("Main.SpeakerA", "On" if self.speakers_a else "Off")
         if self.speakers_b is not None:
-            self._check_and_set(
-                "Main.SpeakerB", "On" if self.speakers_b else "Off"
-            )
+            self._check_and_set("Main.SpeakerB", "On" if self.speakers_b else "Off")
 
     def _select_input_source(self):
         if self.source is not None:
@@ -168,9 +164,7 @@ class NadMixer(pykka.ThreadingActor, mixer.Mixer):
         if self._ask_device(key) == value:
             return True
         else:
-            logger.warning(
-                f"NAD mixer: Gave up on setting {key!r} to {value!r}"
-            )
+            logger.warning(f"NAD mixer: Gave up on setting {key!r} to {value!r}")
             return False
 
     def _ask_device(self, key):
